@@ -2,11 +2,36 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link> |
+      <router-link v-if="!$store.getters['auth/isAuthenticated']" to="/login">Login</router-link>
+      <template v-else>
+        <router-link to="/restricted">Restricted</router-link> |
+        <button @click="logout">Log Out</button>
+      </template>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+	export default {
+		name: 'Restricted',
+		data() {
+			return {};
+		},
+		created() {
+		},
+		mounted() {
+		},
+		methods: {
+			logout() {
+				this.$store.dispatch('auth/AUTH_LOGOUT').then(() => {
+					this.$router.push('/login/');
+				});
+			},
+		},
+	};
+</script>
 
 <style lang="scss">
 #app {
