@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueCookie from 'vue-cookie';
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -7,8 +8,11 @@ import { i18n, loadLanguageAsync } from '@/setup/i18n-setup';
 
 Vue.config.productionTip = false
 
+Vue.use(VueCookie);
+
 router.beforeEach((to, from, next) => {
-	const lang = navigator.language || navigator.userLanguage;
+	//Can use localstorage if prefered
+	let lang = Vue.cookie.get('lang') || navigator.language || navigator.userLanguage;
 
 	loadLanguageAsync(lang).then(() => next());
 });
