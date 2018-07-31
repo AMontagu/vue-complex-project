@@ -1,5 +1,13 @@
 <template>
 	<div class="home">
+
+
+		<button @click="showHeavyImage = !showHeavyImage">Show/hide Heavy Image</button>
+		<heavy-image v-show="showHeavyImage"></heavy-image>
+
+		<!-- Code splitting not usefull when using v-if-->
+		<!--heavy-image v-if="showHeavyImage"></heavy-image-->
+
 		<img
 			v-for="lang in langs"
 			:key="lang"
@@ -9,6 +17,7 @@
 		>
 		<img src="../assets/logo.png">
 		<HelloWorld :msg="$t('Home.WelcomeMessage')"/>
+
 	</div>
 </template>
 
@@ -16,14 +25,20 @@
 	// @ is an alias to /src
 	import HelloWorld from '@/components/HelloWorld.vue'
 
+	//Difference between code splitting and import normal -> when the heavy image is loaded
+	const HeavyImage = () => import ('@/components/HeavyImage.vue')
+	//import HeavyImage from '@/components/HeavyImage.vue'
+
 	export default {
 		name: 'home',
 		components: {
-			HelloWorld
+			HelloWorld,
+			HeavyImage
 		},
 		data() {
 			return {
 				langs: ['en', 'fr'],
+				showHeavyImage: false
 			};
 		},
 		methods: {
