@@ -5,6 +5,9 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import { i18n, loadLanguageAsync } from '@/setup/i18n-setup';
+import ComponentRegistration from '@/setup/componentRegistration'
+
+ComponentRegistration();
 
 Vue.config.productionTip = false
 
