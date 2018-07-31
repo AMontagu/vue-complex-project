@@ -2,8 +2,8 @@
 	<div class="home">
 
 
-		<button @click="showHeavyImage = !showHeavyImage">Show/hide Heavy Image</button>
-		<heavy-image v-show="showHeavyImage"></heavy-image>
+		<button @click="invertShowHeavyImage">Show/hide Heavy Image</button>
+		<heavy-image v-show="$store.getters['global/showHeavyImage']"></heavy-image>
 
 		<!-- Code splitting not usefull when using v-if-->
 		<!--heavy-image v-if="showHeavyImage"></heavy-image-->
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+	import { mapMutations } from 'vuex';
 	// @ is an alias to /src
 	import HelloWorld from '@/components/HelloWorld.vue'
 
@@ -38,10 +39,10 @@
 		data() {
 			return {
 				langs: ['en', 'fr'],
-				showHeavyImage: false
 			};
 		},
 		methods: {
+			...mapMutations('global/', ['invertShowHeavyImage']),
 			changeLang(lang) {
 				this.$cookie.set('lang', lang, 30);
 				this.$i18n.locale = lang;
